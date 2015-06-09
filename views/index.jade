@@ -6,11 +6,19 @@ block content
     .controls
         input.field(style='width:350px;', id='to_send', name='to_send')
         input.send(type='button', value='send', onclick="webSocketTest()")
+    h2 MongoDB configuration
+    p Download MongDB from https://www.mongodb.org, and extract them in a folder.
+    p Create a folder for the storage (default: /data/db).
+    p Execute MongoDB daemon (from the MongoDB bin folder): mongod --dbpath /data/db
+    p To look at the inserted rows, execute in the MongoDB client (bin/mongo): db.logs.find().pretty()
+
 
 block scripts
     script(type='text/javascript', src='/javascripts/socket.io.js')
     script(type='text/javascript').
         function webSocketTest(){
             var socket = io('http://localhost:3000');
-            socket.emit('text', { data: document.getElementById('to_send').value });
+            socket.emit('log', {
+                data: document.getElementById('to_send').value
+            });
         }

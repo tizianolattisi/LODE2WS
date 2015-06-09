@@ -34,7 +34,7 @@ var server = http.createServer(app);
 
 var io = socketio(server);
 io.on('connection', function (socket) {
-    socket.on('text', function (data) {
+    socket.on('log', function (data) {
         console.log(data);
         var logs = db.get('logs');
         logs.insert(data);
