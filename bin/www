@@ -7,6 +7,8 @@
 var app = require('../app');
 var debug = require('debug')('LODE2WS:server');
 var http = require('http');
+var socketio = require('socket.io');
+
 
 /**
  * Get port from environment and store in Express.
@@ -20,6 +22,17 @@ app.set('port', port);
  */
 
 var server = http.createServer(app);
+
+/**
+ * Create websocket server.
+ */
+
+var io = socketio(server);
+io.on('connection', function (socket) {
+    socket.on('text', function (data) {
+        console.log(data);
+    });
+});
 
 /**
  * Listen on provided port, on all network interfaces.
