@@ -9,6 +9,11 @@ var debug = require('debug')('LODE2WS:server');
 var http = require('http');
 var socketio = require('socket.io');
 
+var mongo = require('mongodb');
+var monk = require('monk');
+var db = monk('localhost:27017/wslogs');
+
+
 
 /**
  * Get port from environment and store in Express.
@@ -31,6 +36,8 @@ var io = socketio(server);
 io.on('connection', function (socket) {
     socket.on('text', function (data) {
         console.log(data);
+        var logs = db.get('logs');
+        logs.insert(data);
     });
 });
 
