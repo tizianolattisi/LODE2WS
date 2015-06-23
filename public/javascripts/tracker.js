@@ -19,14 +19,26 @@
  *
  */
 
+var sessionId = sessionIdMaker();
+var userName = null;
+
 function trackEvent(type, value1, value2){
     var socket = io('http://localhost:3000/trackevent');
     socket.emit('log', {
         type: type,
-        timestamp: null,
         sessionId: sessionId,
         userName: userName,
         value1: value1,
         value2: value2
     });
+}
+
+function sessionIdMaker() {
+    var randomPool = new Uint8Array(32);
+    crypto.getRandomValues(randomPool);
+    var hex = '';
+    for (var i = 0; i < randomPool.length; ++i) {
+        hex += randomPool[i].toString(16);
+    }
+    return hex;
 }
