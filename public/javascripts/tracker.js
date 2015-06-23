@@ -1,10 +1,32 @@
 /**
  * Created by tiziano on 23/06/15.
+ *
+ * type
+ * timestamp
+ * sessionId
+ * userName
+ * value1
+ * value2
+ *
+ * type: player
+ * value1 (value2): play, pause, speed (on|off), jumpfrom (sec), jumpstartdrag (sec), jumpdrop (sec)
+ *
+ * type: slides
+ * value1 (value2): prev, current, next, select
+ *
+ * type: screen
+ * value1 (value2): navigator (on|off), layout (ps|p|s), fullscreen (on|off)
+ *
  */
 
-function trackEvent(value){
+function trackEvent(type, value1, value2){
     var socket = io('http://localhost:3000/trackevent');
     socket.emit('log', {
-        data: value
+        type: type,
+        timestamp: null,
+        sessionId: sessionId,
+        userName: userName,
+        value1: value1,
+        value2: value2
     });
 }
