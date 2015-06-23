@@ -29,7 +29,8 @@ function trackEvent(type, value1, value2){
         sessionId: sessionId,
         userName: userName,
         value1: value1,
-        value2: value2
+        value2: value2,
+        timestamp: new Date()
     });
 }
 
