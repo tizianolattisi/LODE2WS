@@ -33,11 +33,12 @@ var server = http.createServer(app);
  */
 
 var io = socketio(server);
-io.on('connection', function (socket) {
+var ns = io.of('/trackevent');
+ns.on('connection', function (socket) {
     socket.on('log', function (data) {
         console.log(data);
         var logs = db.get('logs');
-        logs.insert(data);
+        logs.insert(data); // XXX: { $currentDate: { timestamps: { $type: "timestamp" } } } ??
     });
 });
 
