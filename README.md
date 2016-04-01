@@ -32,7 +32,7 @@ Connect to Mongo DB:
 Example:
 
 ```use lodelogs
- db.logs.find().pretty()```
+db.logs.find().pretty()```
 
 
 Note
