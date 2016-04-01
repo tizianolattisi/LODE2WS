@@ -16,8 +16,8 @@ Run a container based on mongo image:
 
 Build and execute the LODE2 WS image:
 
-```docker build -t unitn.it/lode2ws-app .
-docker run -i -t --name lode2ws-running --link lode2ws-mongo -p 3000:3000 unitn.it/lode2ws-app```
+```docker build -t unitn.it/lode2ws-app .```
+```docker run -i -t --name lode2ws-running --link lode2ws-mongo -p 3000:3000 unitn.it/lode2ws-app```
 
 Point the browser to http://127.0.0.1:3000/Website/lectures/01%20test/
 
@@ -31,8 +31,8 @@ Connect to Mongo DB:
 
 Example:
 
-```use lodelogs
-db.logs.find().pretty()```
+```use lodelogs```
+```db.logs.find().pretty()```
 
 
 Note
