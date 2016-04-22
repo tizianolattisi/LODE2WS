@@ -23,8 +23,10 @@ var sessionId = sessionIdMaker();
 var userName = null;
 
 function trackEvent(type, value1, value2){
-    //var socket = io('http://localhost:3000/trackevent');
-    var socket = io('/trackevent');
+    var href = window.location.href;
+    var arr = href.split("/");
+    var url = arr[0] + "//" + arr[2] + "/trackevent";
+    var socket = io(url);
     socket.emit('log', {
         type: type,
         sessionId: sessionId,
