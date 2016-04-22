@@ -15,13 +15,13 @@ then
 read -p "The $machine docker-machine is not running, press [Enter] to start them..."
 docker-machine start "$machine"
 fi
-echo "Copy a LODE2 lesson content in public/Website/lectures/01 test/content"
-read -p "Premi [Enter] per continuare..."
-eval $(docker-machine env lode2)
+eval $(docker-machine env $machine)
 docker run --name lode2ws-mongo -d -p 27017:27017 mongo:3.2.1
 docker build --rm=true --file=devop/Dockerfile -t unitn.it/lode2ws-app .
-docker run -v ~/_LODE/WEBSITE:/usr/src/app/public/website -d --name lode2ws-running --link lode2ws-mongo -p 3000:3000 unitn.it/lode2ws-app
+read -p "Insert the local folder share to mount as LODE2 distribution contents [~/_LODE/WEBSITE]: " folder
+folder=${folder:-~/_LODE/WEBSITE}
+docker run -v "$folder:/usr/src/app/public/website" -d --name lode2ws-running --link lode2ws-mongo -p 3000:3000 unitn.it/lode2ws-app
 set -- "$DOCKER_HOST"
 IFS=":"; declare -a Array=($*)
-open "http:${Array[1]}:3000/lecture.htmm?content=test"
-echo "Se il browser non si è aperto, aprilo tu e punta a http:${Array[1]}:3000/lecture.htmm?content=test"
+open "http:${Array[1]}:3000/lecture.html?content=test"
+echo "Se il browser non si è aperto, aprilo tu e punta a http:${Array[1]}:3000/lecture.html?content=test"
